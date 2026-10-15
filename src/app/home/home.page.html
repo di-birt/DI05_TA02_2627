@@ -1,20 +1,71 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>TA02 · Spy y mocks</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <main class="page-shell">
+    <section class="intro">
+      <p class="eyebrow">Pruebas unitarias con Vitest</p>
+      <h1>Observa cómo colaboran los objetos.</h1>
+      <p class="lead">
+        Esta demo calcula una edad para mostrar dónde encaja un <strong>spy</strong>
+        y cómo un <strong>mock</strong> sustituye una dependencia.
+      </p>
+    </section>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <section class="demo-grid" aria-label="Ejemplo interactivo">
+      <ion-card class="work-card">
+        <ion-card-header>
+          <p class="card-kicker">01 · Ejecuta el comportamiento</p>
+          <ion-card-title>Comprobar mayoría de edad</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item lines="none">
+            <ion-label position="stacked">Año de nacimiento</ion-label>
+            <ion-input
+              type="number"
+              min="1900"
+              max="2100"
+              [(ngModel)]="anyoNacimiento"
+            ></ion-input>
+          </ion-item>
+          <ion-button expand="block" (click)="comprobarEdad()">
+            Ejecutar comprobación
+          </ion-button>
+          @if (resultado) {
+            <p class="result" aria-live="polite">{{ resultado }}</p>
+          }
+        </ion-card-content>
+      </ion-card>
+
+      <div class="concept-stack">
+        <article class="concept spy-concept">
+          <span class="concept-number">SPY</span>
+          <div>
+            <h2>Espía una llamada real</h2>
+            <p>
+              Observa si <code>calcularEdad()</code> y
+              <code>mayorDeEdad()</code> se invocan, sin reemplazar su lógica.
+            </p>
+            <ion-note>vi.spyOn(component, 'calcularEdad')</ion-note>
+          </div>
+        </article>
+        <article class="concept mock-concept">
+          <span class="concept-number">MOCK</span>
+          <div>
+            <h2>Reemplaza una dependencia</h2>
+            <p>
+              Entrega un <code>EdadService</code> falso para controlar sus
+              respuestas y aislar el componente.
+            </p>
+            <ion-note>useValue: edadServiceMock</ion-note>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer-note">Abre <code>home.page.spec.ts</code> y ejecuta <code>npm test</code>.</p>
+  </main>
 </ion-content>

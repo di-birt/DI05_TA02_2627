@@ -1,26 +1,66 @@
-import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular';
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonNote,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular';
+import { EdadService } from './edad.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [
+    FormsModule,
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardTitle,
+    IonContent,
+    IonHeader,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonNote,
+    IonTitle,
+    IonToolbar,
+  ],
 })
 export class HomePage {
-  constructor() {}
+  anyoNacimiento = 2000;
+  resultado = '';
+
+  private readonly edadService = inject(EdadService);
 
   mayorDeEdad(edad: number): boolean {
-    return edad >= 18;
+    return this.edadService.esMayorDeEdad(edad);
   }
 
-  calcularEdad(añoNacimiento: number): number {
-    const añoActual = new Date().getFullYear();
-    return añoActual - añoNacimiento;
+  calcularEdad(anyoNacimiento: number): number {
+    return this.edadService.calcularEdad(anyoNacimiento);
   }
 
-  esMayorDeEdadPorAño(añoNacimiento: number): boolean {
-    const edad = this.calcularEdad(añoNacimiento);
+  esMayorDeEdadPorAño(anyoNacimiento: number): boolean {
+    const edad = this.calcularEdad(anyoNacimiento);
     return this.mayorDeEdad(edad);
+  }
+
+  comprobarEdad(): void {
+    const edad = this.calcularEdad(this.anyoNacimiento);
+    this.resultado = this.mayorDeEdad(edad)
+      ? `Tiene ${edad} años y es mayor de edad.`
+      : `Tiene ${edad} años y es menor de edad.`;
   }
 }
