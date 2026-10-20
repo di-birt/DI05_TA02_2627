@@ -87,6 +87,14 @@ describe('HomePage', () => {
   });
 });
 
+/* El flujo sería algo asi:
+  1. El componente pide al servicio calcular la edad con 2000. ---> component.esMayorDeEdadPorAño(2000)
+  2. El servicio simulado responde 42. ---> mockReturnValue(42)
+  3. El componente pasa 42 a esMayorDeEdad().
+  4. El servicio simulado responde true. ---> mockReturnValue(true)
+  5. El componente devuelve true.
+ */
+
 describe('HomePage con un mock de EdadService', () => {
   it('permite controlar la respuesta de la dependencia', () => {
     // El mock reemplaza al servicio real para que el test controle sus respuestas.
